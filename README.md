@@ -59,7 +59,9 @@ docker-compose up --build
 
 6. Acceder a la Aplicación
 Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplicación en:
+
 [Spring Boot Application: http://localhost:8080](http://localhost:8080/api/)
+
 [SwaggerUI](http://localhost:8080/swagger-ui/index.html#/)
 
 8. Endpoints de la API
