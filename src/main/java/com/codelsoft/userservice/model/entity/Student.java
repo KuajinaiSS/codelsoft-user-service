@@ -21,12 +21,12 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable = false)
     private String firstname;
 
-    @Column(name = "lastname")
+    @Column(name = "lastname", nullable = false)
     private String lastname;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false,  unique = true)
     private String email;
 }

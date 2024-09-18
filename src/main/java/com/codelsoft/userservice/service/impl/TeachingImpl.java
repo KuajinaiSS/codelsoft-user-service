@@ -95,7 +95,7 @@ public class TeachingImpl implements ITeaching {
 
         teachings.forEach(teaching -> {
             userResponseDtos.add(UserResponseDto.builder()
-                    .uuid(teaching.getId())  // Asegúrate de incluir el UUID
+                    .uuid(teaching.getId())
                     .firstname(teaching.getFirstname())
                     .lastname(teaching.getLastname())
                     .email(teaching.getEmail())

@@ -6,8 +6,10 @@ import com.codelsoft.userservice.model.dto.UserResponseDto;
 import com.codelsoft.userservice.model.entity.Student;
 import com.codelsoft.userservice.service.IStudent;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,7 @@ public class StudentImpl implements IStudent {
     @Autowired
     private StudentDao studentDao;
 
+    @Transactional
     @Override
     public UserResponseDto save(UserDto userResponseDto) {
         Student studentSave = Student.builder()
@@ -37,6 +40,7 @@ public class StudentImpl implements IStudent {
                 .build();
     }
 
+    @Transactional
     @Override
     public UserResponseDto update(UserResponseDto userResponseDto) {
         Student student = studentDao.findById(userResponseDto.getUuid())
@@ -55,6 +59,7 @@ public class StudentImpl implements IStudent {
                 .build();
     }
 
+    @Transactional
     @Override
     public UserResponseDto findById(UUID uuid) {
         Student student = studentDao.findById(uuid)
@@ -68,6 +73,7 @@ public class StudentImpl implements IStudent {
                 .build();
     }
 
+    @Transactional
     @Override
     public Iterable<UserResponseDto> findAll() {
         Iterable<Student> students = studentDao.findAll();
