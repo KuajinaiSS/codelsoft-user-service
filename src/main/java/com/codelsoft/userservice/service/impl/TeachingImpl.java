@@ -9,6 +9,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,25 +21,27 @@ public class TeachingImpl implements ITeaching {
 
     @Autowired
     private TeachingDao teachingDao;
+    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
     @Transactional
     @Override
     public UserResponseDto save(UserDto userDto) {
 
-        // validar campos nulos
         if (userDto.getFirstname() == null || userDto.getLastname() == null || userDto.getEmail() == null) {
             throw new IllegalArgumentException("All fields are required");
         }
 
-        // Generar la contraseña basada en el nombre
-        String password = userDto.getFirstname().toLowerCase();
+        String rawPassword = userDto.getFirstname().toLowerCase();
+        // hash password
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+
 
         Teaching teachingSave = Teaching.builder()
                 .firstname(userDto.getFirstname())
                 .lastname(userDto.getLastname())
                 .email(userDto.getEmail())
-                .password(password)
+                .password(hashedPassword)
                 .build();
 
         Teaching teaching = teachingDao.save(teachingSave);
